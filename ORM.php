@@ -13,7 +13,7 @@ class ORM
   public function __construct()
   {
     global $conn;
-    $this->connection = $connection;
+    $this->connection = $conn;
   }
 
   public function table($table)
@@ -63,15 +63,14 @@ class ORM
 
   public function where($column, $operator, $value = null, $boolean = 'AND')
   {
-    global $connection; // Acessa a variável global de conexão
+    global $conexao;
 
     if ($value === null) {
       $value = $operator;
       $operator = '=';
     }
 
-    // Escapar o valor para evitar SQL Injection
-    $escapedValue = $connection->real_escape_string($value);
+    $escapedValue = $conexao->real_escape_string($value);
 
     $this->conditions[] = [
       'column' => $column,
@@ -143,6 +142,3 @@ class ORM
   }
 
 }
-
-
-
